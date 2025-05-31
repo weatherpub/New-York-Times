@@ -25,19 +25,12 @@ public class HomeFragment extends Fragment {
      * HomeFragment makes a request for data via an inner class DownloadRSS
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         io = new FileIO(getContext());
 
-        // final TextView textView = binding.textHome;
-        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         new DownloadRSS().execute();
-
-        // use live data observable here
 
         return view;
     }
@@ -51,8 +44,7 @@ public class HomeFragment extends Fragment {
     public class DownloadRSS extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-
-            io.downloadFile(); //
+            io.downloadFile(); // FileIO method
             return null;
         }
     }
