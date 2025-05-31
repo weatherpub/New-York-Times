@@ -8,21 +8,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import edu.sfsu.nyt.model.RSSFeedModel;
+
 public class FileIO {
 
-    private final String URL_STRING = "https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml";
-    private final String FILENAME = "news_feed_africa.xml";
     private Context context = null;
 
     public FileIO(Context context) {
-        this.context = context;
-        Log.i("log", "FileIO Constructor - 0");
+        this.context = context.getApplicationContext();
     }
 
-    public void downloadFile() {
+    public void downloadRSSFile() {
         try {
-            URL url = new URL(URL_STRING);
+            URL url = new URL("https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml");
             InputStream in = url.openStream();
+            String FILENAME = "news_feed_africa.xml";
+
             FileOutputStream out = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 
             byte[] buffer = new byte[1024];
@@ -41,4 +42,14 @@ public class FileIO {
             Log.e("News reader", e.toString());
         }
     }
+
+        /*
+    public RSSFeedModel readRSSFile() {
+        try {
+            RSSFeedModel feed = theRssHandler.getFeed();
+            return feed;
+        } catch (Exception e) {
+        }
+    }
+        */
 }
