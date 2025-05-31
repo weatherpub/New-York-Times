@@ -26,8 +26,7 @@ public class HomeFragment extends Fragment {
         View view = binding.getRoot();
 
         io = new FileIO(getContext());
-
-        new DownloadRSSFeed().execute();
+        new DownloadRSSFeed().execute("Africa");
 
         return view;
     }
@@ -41,10 +40,10 @@ public class HomeFragment extends Fragment {
     /**
      * Get the RSS file.
      */
-    public class DownloadRSSFeed extends AsyncTask<Void, Void, Void> {
+    public class DownloadRSSFeed extends AsyncTask<String, Void, Void> {
         @Override
-        protected Void doInBackground(Void... params) {
-            io.downloadRSSFile(); // FileIO method
+        protected Void doInBackground(String... param) {
+            io.downloadRSSFile(param[0]); // FileIO method
             return null;
         }
     }

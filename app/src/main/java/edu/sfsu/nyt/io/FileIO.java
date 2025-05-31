@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import edu.sfsu.nyt.model.RSSFeedModel;
-
 public class FileIO {
 
     private Context context = null;
@@ -18,9 +16,13 @@ public class FileIO {
         this.context = context.getApplicationContext();
     }
 
-    public void downloadRSSFile() {
+    /**
+     * The purpose of this method downloadRSSFile is to download the RSS to disk.
+     */
+    public void downloadRSSFile(String topic) {
         try {
-            URL url = new URL("https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml");
+            Log.i("log", "topic " + topic);
+            URL url = new URL("https://rss.nytimes.com/services/xml/rss/nyt/" + topic + ".xml");
             InputStream in = url.openStream();
             String FILENAME = "news_feed_africa.xml";
 
@@ -43,7 +45,7 @@ public class FileIO {
         }
     }
 
-        /*
+   /*
     public RSSFeedModel readRSSFile() {
         try {
             RSSFeedModel feed = theRssHandler.getFeed();
@@ -51,5 +53,5 @@ public class FileIO {
         } catch (Exception e) {
         }
     }
-        */
+    */
 }
