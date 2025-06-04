@@ -3,10 +3,17 @@ package edu.sfsu.nyt.io;
 import android.content.Context;
 import android.util.Log;
 
+import org.xml.sax.XMLReader;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import edu.sfsu.nyt.model.RSSFeedModel;
 
 public class FileIO {
 
@@ -24,14 +31,15 @@ public class FileIO {
             Log.i("log", "topic " + topic);
             URL url = new URL("https://rss.nytimes.com/services/xml/rss/nyt/" + topic + ".xml");
             InputStream in = url.openStream();
-            String FILENAME = "news_feed_africa.xml";
+
+            String FILENAME = "news_feed_" + topic.toLowerCase() + ".xml";
 
             FileOutputStream out = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 
             byte[] buffer = new byte[1024];
             int bytesRead = in.read(buffer);
 
-            Log.i("log", "FileInput " + out.toString());
+            Log.i("log", "FileInput " + out);
 
             while(bytesRead != -1) {
                 out.write(buffer, 0, bytesRead);
@@ -43,6 +51,24 @@ public class FileIO {
         } catch (IOException e) {
             Log.e("News reader", e.toString());
         }
+    }
+
+    public RSSFeedModel readFile() {
+       try {
+           SAXParserFactory factory = SAXParserFactory.newInstance();
+           SAXParser parser = factory.newSAXParser();
+           XMLReader xmlReader = parser.getXMLReader();
+
+           // set content handler
+
+
+
+           //RSSFeedModel feed = theRssHandler.getFeed();
+           return null; // change this back to 'feed'
+       } catch (Exception e) {
+            Log.i("News reader", e.toString());
+            return null;
+       }
     }
 
    /*
